@@ -7,22 +7,34 @@ export const USER_REGISTER_INITIALZE = " USER_REGISTER_INITIALZE";
 export const USER_REGISTER_COMPLETED = "USER_REGISTER_COMPLETED";
 export const USER_REGISTER_FAILED = "USER_REGISTER_FAILED";
 
-export const loginUser = () => {
+export const loginUser = user => {
   return dispatch => {
     dispatch({ type: USER_LOGIN_INITIALZE });
     axios
-      .get("")
-      .then()
-      .catch();
+      .post("http://localhost:3300/login", user)
+      .then(response => {
+        dispatch({ type: USER_LOGIN_COMPLETED, payload: response.data });
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: USER_LOGIN_FAILED });
+      });
   };
 };
 
-export const registerUser = () => {
+export const registerUser = user => {
   return dispatch => {
     dispatch({ type: USER_REGISTER_INITIALZE });
     axios
-      .get("")
-      .then()
-      .catch();
+      .post("http://localhost:3300/register", user)
+      .then(response => {
+        console.log(user);
+        dispatch({ type: USER_REGISTER_COMPLETED, payload: response.data });
+        localStorage.setItem("jwt", response.data.token);
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: USER_REGISTER_FAILED });
+      });
   };
 };

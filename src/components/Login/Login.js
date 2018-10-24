@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { loginUser } from "../../actions";
+import { connect } from "react-redux";
 
-class HomePage extends React.Component {
+class Login extends React.Component {
   state = {
     username: "",
     password: ""
@@ -15,7 +17,8 @@ class HomePage extends React.Component {
 
   handleLogin = event => {
     event.preventDefault();
-    this.loginUser(this.state);
+    console.log(this.state);
+    this.props.loginUser(this.state);
   };
 
   render() {
@@ -43,13 +46,24 @@ class HomePage extends React.Component {
             />
           </div>
           <div>
-            <button type="submit" /*onClick={this.handleLogin}*/>Login</button>
+            <button type="submit">Login</button>
           </div>
-          <Link to="/signup">Sign Up Here!</Link>
+          <Link to="/register">Sign Up Here!</Link>
         </form>
       </div>
     );
   }
 }
 
-export default HomePage;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    loginUser
+  }
+)(Login);

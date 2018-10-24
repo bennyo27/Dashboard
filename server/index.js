@@ -1,21 +1,6 @@
-// imports
-const express = require("express");
+const { server } = require("./server.js");
 
-// instantiate server
-const server = express();
-server.use(express.json());
-
-// middleware 
-const protected 
-
-// endpoints
-server.post("/login", (req, res) => {
-  const creds = req.body;
+const port = process.env.PORT || 3300;
+server.listen(port, () => {
+  console.log(`\n=== Server listening on port ${port}\n`);
 });
-
-// server port
-server.listen(9000, () => {
-  console.log(`This server is running on 9000`);
-});
-
-

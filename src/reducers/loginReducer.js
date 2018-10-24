@@ -1,12 +1,15 @@
 import {
   USER_LOGIN_INITIALZE,
   USER_LOGIN_COMPLETED,
-  USER_LOGIN_FAILED
+  USER_LOGIN_FAILED,
+  USER_REGISTER_INITIALZE,
+  USER_REGISTER_COMPLETED,
+  USER_REGISTER_FAILED
 } from "../actions";
 
 const initialState = {
   user: [],
-  notes: []
+  err: ""
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -15,10 +18,20 @@ const loginReducer = (state = initialState, action) => {
       return { ...state };
 
     case USER_LOGIN_COMPLETED:
-      return { ...state, notes: action.payload };
+      return { ...state, user: action.payload };
 
     case USER_LOGIN_FAILED:
-      return;
+      return { ...state, err: "Error Logging in" };
+
+    case USER_REGISTER_INITIALZE:
+      return { ...state };
+
+    case USER_REGISTER_COMPLETED:
+      return { ...state, user: action.payload };
+
+    case USER_REGISTER_FAILED:
+      return { ...state, err: "Error Registering" };
+
     default:
       return state;
   }
