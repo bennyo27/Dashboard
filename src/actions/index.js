@@ -7,6 +7,10 @@ export const USER_REGISTER_INITIALZE = " USER_REGISTER_INITIALZE";
 export const USER_REGISTER_COMPLETED = "USER_REGISTER_COMPLETED";
 export const USER_REGISTER_FAILED = "USER_REGISTER_FAILED";
 
+export const USER_FETCHING_INITIALZE = " USER_FETCHING_INITIALZE";
+export const USER_FETCHING_COMPLETED = "USER_FETCHING_COMPLETED";
+export const USER_FETCHING_FAILED = "USER_FETCHING_FAILED";
+
 export const loginUser = user => {
   return dispatch => {
     dispatch({ type: USER_LOGIN_INITIALZE });
@@ -28,13 +32,36 @@ export const registerUser = user => {
     axios
       .post("http://localhost:3300/register", user)
       .then(response => {
-        console.log(user);
         dispatch({ type: USER_REGISTER_COMPLETED, payload: response.data });
         localStorage.setItem("jwt", response.data.token);
       })
       .catch(err => {
         console.log(err);
         dispatch({ type: USER_REGISTER_FAILED });
+      });
+  };
+};
+
+export const getUsers = user => {
+  const token = localStorage.getItem("jwt");
+  const options = {
+    headers: {
+      Authorization: token
+    }
+  };
+  return dispatch => {
+    dispatch({ type: USER_FETCHING_INITIALZE });
+    axios
+      .get("http://localhost:3300/users", options)
+      .then(response => {
+        dispatch({
+          type: USER_FETCHING_COMPLETED,
+          payload: response.data.users
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: USER_FETCHING_FAILED });
       });
   };
 };

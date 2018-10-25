@@ -4,7 +4,10 @@ import {
   USER_LOGIN_FAILED,
   USER_REGISTER_INITIALZE,
   USER_REGISTER_COMPLETED,
-  USER_REGISTER_FAILED
+  USER_REGISTER_FAILED,
+  USER_FETCHING_INITIALZE,
+  USER_FETCHING_COMPLETED,
+  USER_FETCHING_FAILED
 } from "../actions";
 
 const initialState = {
@@ -12,7 +15,7 @@ const initialState = {
   err: ""
 };
 
-const loginReducer = (state = initialState, action) => {
+export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN_INITIALZE:
       return { ...state };
@@ -32,9 +35,17 @@ const loginReducer = (state = initialState, action) => {
     case USER_REGISTER_FAILED:
       return { ...state, err: "Error Registering" };
 
+    case USER_FETCHING_INITIALZE:
+      return { ...state };
+
+    case USER_FETCHING_COMPLETED:
+      return { ...state, user: action.payload };
+
+    case USER_FETCHING_FAILED:
+      return { ...state, err: "Error Fetching" };
+
     default:
       return state;
   }
 };
-
-export default loginReducer;
+export default rootReducer;
