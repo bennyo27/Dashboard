@@ -55,10 +55,9 @@ export const welcome = id => {
     axios
       .get(`http://localhost:3300/welcome/${id}`, options)
       .then(response => {
-        console.log(response.data.users);
         dispatch({
           type: USER_FETCHING_COMPLETED,
-          payload: response.data
+          payload: response.data.users
         });
       })
       .catch(err => {
