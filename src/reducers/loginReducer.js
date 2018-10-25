@@ -15,7 +15,7 @@ const initialState = {
   err: ""
 };
 
-export const loginReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN_INITIALZE:
       return { ...state };
@@ -42,10 +42,6 @@ export const loginReducer = (state = initialState, action) => {
       return { ...state, user: action.payload };
 
     case USER_FETCHING_FAILED:
-      return { ...state, err: "Error Fetching" };
-
-    default:
-      return state;
   }
 };
-export default rootReducer;
+export default loginReducer;
