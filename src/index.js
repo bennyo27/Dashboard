@@ -8,9 +8,10 @@ import logger from "redux-logger";
 import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import { BrowserRouter as Router } from "react-router-dom";
+import loginReducer from "./reducers/loginReducer";
 
 const store = createStore(
-  rootReducer,
+  loginReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(thunk, logger)
 );

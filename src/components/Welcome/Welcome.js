@@ -1,22 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUsers } from "../../actions";
+import { welcome } from "../../actions";
 
 class Welcome extends Component {
   componentDidMount() {
-    this.props.getUsers();
-    console.log("hi");
+    this.props.welcome(this.props.match.params.id);
   }
 
   render() {
-    console.log(this.props.user);
     return (
       <div>
-        <ul>
-          {this.props.user.map(user => (
-            <li key={user.id}>{user.username}</li>
-          ))}
-        </ul>
+        <h1>{console.log(this.props.user)}</h1>
+        {`Welcome ${this.props.user.username}`}
       </div>
     );
   }
@@ -30,5 +25,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getUsers }
+  { welcome }
 )(Welcome);
