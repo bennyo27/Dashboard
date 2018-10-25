@@ -42,6 +42,10 @@ const loginReducer = (state = initialState, action) => {
       return { ...state, user: action.payload };
 
     case USER_FETCHING_FAILED:
+      return { ...state };
+
+    default:
+      return state;
   }
 };
 export default loginReducer;
