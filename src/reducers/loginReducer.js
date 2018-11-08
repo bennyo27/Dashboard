@@ -9,10 +9,14 @@ import {
   USER_FETCHING_COMPLETED,
   USER_FETCHING_FAILED
 } from "../actions";
+import Auth from "../components/Auth/auth";
+
+const auth = new Auth();
 
 const initialState = {
   user: [],
-  err: ""
+  err: "",
+  auth
 };
 
 const loginReducer = (state = initialState, action) => {

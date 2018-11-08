@@ -7,7 +7,7 @@ const { generateToken, jwtSecret, protected } = require("./middlewares");
 
 // exports
 module.exports = server => {
-  server.get("/welcome/:id", protected, welcome);
+  server.get("/welcome", protected, welcome);
   server.post("/register", register);
   server.post("/login", login);
   server.get("/users", getUsers);
@@ -45,9 +45,7 @@ function login(req, res) {
 }
 
 function welcome(req, res) {
-  const { id } = req.params;
   db("users")
-    .where({ id })
     .then(users => res.status(200).json({ users }))
     .catch(err => res.status(500).json(err));
 }

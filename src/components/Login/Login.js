@@ -8,6 +8,9 @@ class Login extends React.Component {
     username: "",
     password: ""
   };
+  componentDidMount() {
+    this.login();
+  }
 
   handleInput = event => {
     this.setState({
@@ -15,17 +18,14 @@ class Login extends React.Component {
     });
   };
 
-  handleLogin = event => {
-    event.preventDefault();
-    console.log(this.state);
-    this.props.loginUser(this.state);
-    this.props.history.push("/");
+  login = () => {
+    this.props.auth.login();
   };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleLogin}>
+        <form>
           <div>
             <label htmlFor="username">Username</label>
             <input
@@ -58,7 +58,8 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    auth: state.auth
   };
 };
 

@@ -17,8 +17,10 @@ export const loginUser = user => {
     axios
       .post("http://localhost:3300/login", user)
       .then(response => {
+        console.log(response.data.welcome);
         dispatch({ type: USER_LOGIN_COMPLETED, payload: response.data });
         localStorage.setItem("jwt", response.data.token);
+        localStorage.setItem("username", response.data.welcome);
       })
       .catch(err => {
         console.log(err);
@@ -53,7 +55,7 @@ export const welcome = id => {
   return dispatch => {
     dispatch({ type: USER_FETCHING_INITIALZE });
     axios
-      .get(`http://localhost:3300/welcome/${id}`, options)
+      .get(`http://localhost:3300/welcome`, options)
       .then(response => {
         dispatch({
           type: USER_FETCHING_COMPLETED,

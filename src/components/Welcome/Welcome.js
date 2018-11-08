@@ -1,29 +1,38 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { welcome } from "../../actions";
+import Auth from "../Auth/auth";
 
 class Welcome extends Component {
-  render() {
-    if (!this.props.user || this.props.user.length === 0) {
-      return "Not Authorized";
+  componentWillMount() {
+    this.setState({ profile: {} });
+    const { userProfile, getProfile } = this.props.auth;
+    console.log(userProfile);
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({ profile });
+      });
     } else {
-      return (
-        <div>
-          {`Welcome ${this.props.user.username}`}
-          <h1>{console.log(this.props.user)}</h1>
-        </div>
-      );
+      this.setState({ profile: userProfile });
     }
+    console.log(this.state);
   }
 
-  componentDidMount() {
-    this.props.welcome(this.props.match.params.id);
+  render() {
+    const { profile } = this.state;
+    return (
+      <div>
+        {/* <h1>{console.log(this.state.profile)}</h1> */}
+        <h1>{`Welcome `}</h1>
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    auth: state.auth
   };
 };
 
